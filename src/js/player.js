@@ -7,13 +7,16 @@ import {
     vec,
     Vector,
     CollisionType,
-    Shape, Sound, GraphicsGroup,
+    Shape,
+    Engine,
 } from "excalibur";
 import { Resources } from './resources.js'
-import { UI } from '../js/ui.js'
+import {Banana} from "./Banana.js";
+import {GoldenBanana} from "./GoldenBanana.js";
 
 export class Player extends Actor {
 
+    game
     playerAnimations = []
     direction = 'R'
     isJumping = false
@@ -29,6 +32,8 @@ export class Player extends Actor {
    }
 
    onInitialize(_engine) {
+       this.game = _engine
+
 
         let standingAnimation = SpriteSheet.fromImageSource({
             image: Resources.Idlesheet,
@@ -64,13 +69,27 @@ export class Player extends Actor {
         this.playerAnimations['jumpingAnimation'] = Animation.fromSpriteSheet(jumpingAnimation, range(0,2), 250);
         this.playerAnimations['walkingAnimation'] = Animation.fromSpriteSheet(walkingAnimation, range(0,3), 150);
 
+        //onCollision
+       this.on('collisionstart', (event) => this.onCollision(event))
 
         //apply the starting spritesheet
        this.graphics.use(this.playerAnimations['standingAnimation'])
-
    }
 
+   onCollision(event) {
+       if (event.other instanceof Banana) {
+           event.other.grab()
 
+           this.game.currentScene.uivar.updateScore()
+
+           const sfx = Resources.sfx
+           sfx.play()
+       }
+       else if (event.other instanceof GoldenBanana) {
+           event.other.SecondLevel()
+           this.pos = new Vector(0,0)
+       }
+   }
 
     onPreUpdate(engine, delta) {
         let speedvar = 0
@@ -148,15 +167,24 @@ export class Player extends Actor {
             fell.play(0.6)
 
             if (this.Lives === 0){
-                const bgm = Resources.IslandSwing
-                bgm.stop()
-                engine.goToScene('MainMenu')
-                this.Lives = 4
+                this.stopMusic()
+                this.Lives = 3
+                this.game.currentScene.resetPlayer()
+                this.game.currentScene.uivar.updatelife(this.Lives)
+                engine.goToScene('gameOver')
             }
             else{
-                this.pos = vec(0,0)
+                this.game.currentScene.resetPlayer()
+                this.game.currentScene.uivar.updatelife(this.Lives)
             }
         }
 
+   }
+
+   stopMusic() {
+       const bgm = Resources.IslandSwing
+       bgm.stop()
+       const bgm1 = Resources.StickySituation
+       bgm1.stop()
    }
 }

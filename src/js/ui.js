@@ -1,79 +1,69 @@
+import {
+    Engine,
+    TextAlign,
+    BaseAlign,
+    Line,
+    Label,
+    Text,
+    FontUnit,
+    Vector,
+    Color,
+    Circle,
+    ScreenElement,
+    Font,
+    GraphicsGroup, vec
+} from 'excalibur'
 import {Resources} from "./resources.js";
-import {GraphicsGroup, Vector, ScreenElement, vec} from "excalibur";
 
+// screenelement heeft geen collision, altijd on top, beweegt niet mee met camera
+// beperking: je kan alleen text en graphics toevoegen via graphics.add
+// geeft warning Excalibur only supports convex polygon colliders
 export class UI extends ScreenElement {
 
-    lives = 3
+    score = 0
+    scoreText
+    livesText
 
     constructor() {
-        super({ x: 10, y: 10 })
-        this.z = -1
+        super({x: 10, y: 10})
     }
 
     onInitialize(engine) {
-        this.RefreshUI()
+        this.scoreText = new Text({
+            text: `Banaantjes : ${this.score}`,
+            font: new Font({
+                unit: FontUnit.Px,
+                size: 30,
+                color: Color.White,
+                baseAlign: BaseAlign.Top
+            }),
+        })
+        this.graphics.add(this.scoreText)
+
+        this.livesText = new Text({
+            text: `Lives : 3`,
+            font: new Font({
+                unit: FontUnit.Px,
+                size: 30,
+                color: Color.White,
+            }),
+        })
+        this.livesText.pos = new Vector(0,20)
+        this.graphics.add(this.livesText)
+
     }
 
-    RefreshUI() {
+    reset() {
+        this.score = 0
+        this.scoreText.text = 'Banaantjes : 0'
+    }
 
-        const live = Resources.Head.toSprite()
-        this.offset = live.width
+    updateScore() {
+        this.score++
+        this.scoreText.text = `Banaantjes: ${this.score}`
+    }
 
-        switch (true) {
-            case this.lives === 3:
-                const group = new GraphicsGroup({
-                    members: [
-                        {
-                            graphic: live,
-                            pos: new Vector(80, 0),
-                            scale: vec(2,2)
-                        },
-                        {
-                            graphic: live,
-                            pos: new Vector(80 + live.width, 0),
-                            scale: vec(2,2)
-
-                        },
-                        {
-                            graphic: live,
-                            pos: new Vector(80 + live.width * 2, 0),
-                            scale: vec(2,2)
-                        }
-                    ]
-                })
-                this.graphics.add(group)
-                break;
-
-            case this.lives === 2:
-                const group2 = new GraphicsGroup({
-                    members: [
-                        {
-                            graphic: live,
-                            pos: new Vector(0, 0),
-                        },
-                        {
-                            graphic: live,
-                            pos: new Vector(live.width, 0),
-
-                        },
-                    ]
-                })
-                this.graphics.add(group2)
-                break;
-
-            case this.lives === 1:
-                const group3 = new GraphicsGroup({
-                    members: [
-                        {
-                            graphic: live,
-                            pos: new Vector(0, 0),
-                        },
-                    ]
-                })
-                this.graphics.add(group3)
-                break;
-        }
+    updatelife(e) {
+        this.livesText.text = `Lives : ${e}`
     }
 }
-
-

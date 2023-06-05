@@ -1,32 +1,43 @@
-import { Actor, Vector, GraphicsGroup } from 'excalibur'
+import {Actor, Vector, GraphicsGroup, ParallaxComponent} from 'excalibur'
 import { Resources } from './resources.js'
 
 
 export class Background extends Actor {
 
     offset
-
+    game
+    bgImage
     onInitialize(engine){
-        const bgImage = Resources.Background.toSprite()
-        this.offset = bgImage.width
+
+        this.game = engine
+
+        if (this.game.currentScene.levelint === 1){
+            this.bgImage = Resources.Background.toSprite()
+        }
+        else{
+            this.bgImage = Resources.Background2.toSprite()
+        }
+        this.offset = this.bgImage.width
 
         const group = new GraphicsGroup({
             members: [
                 {
-                    graphic: bgImage,
+                    graphic: this.bgImage,
                     pos: new Vector(0, 0),
                 },
                 {
-                    graphic: bgImage,
-                    pos: new Vector(bgImage.width, 0),
+                    graphic: this.bgImage,
+                    pos: new Vector(this.bgImage.width, 0),
 
                 },
                 {
-                    graphic: bgImage,
-                    pos: new Vector(bgImage.width * 2, 0),
+                    graphic: this.bgImage,
+                    pos: new Vector(this.bgImage.width * 2, 0),
                 }
             ]
         })
+
+
 
         this.graphics.anchor = new Vector(0,0)
         this.graphics.add(group)
