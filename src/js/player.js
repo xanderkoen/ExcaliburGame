@@ -86,8 +86,8 @@ export class Player extends Actor {
            sfx.play()
        }
        else if (event.other instanceof GoldenBanana) {
+           this.pos = this.game.currentScene.startpos
            event.other.SecondLevel()
-           this.pos = new Vector(0,0)
        }
    }
 
@@ -158,7 +158,7 @@ export class Player extends Actor {
 
 
         //check if player is out of bounds
-        if  (this.pos.y > 1200) {
+        if  (this.pos.y > 1500) {
             this.Lives--
 
             console.log(this.Lives)

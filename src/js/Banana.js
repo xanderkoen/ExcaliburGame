@@ -5,10 +5,7 @@ export class Banana extends Actor {
 
     constructor(x, y) {
         super({ width: Resources.Banana.width, height: Resources.Banana.height }) // collision box!
-        this.pos = new Vector(
-            100,
-            300
-        )
+        this.pos = new Vector(x,y)
         this.scale = new Vector(1.5, 1.5);
     }
 

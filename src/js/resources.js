@@ -9,6 +9,7 @@ import jumpsheet from '../images/jumpsheet.png'
 import walksheet from '../images/walksheet.png'
 import ground from '../images/ground.png'
 import cords from '../data/ground.json'
+import bancords from '../data/banaan.json'
 import banaan from '../images/goldenbanana.png'
 import banaantje from '../images/banana.png'
 import fell from '../Sounds/Death.mp3'
@@ -31,6 +32,7 @@ const Resources = {
     StickySituation: new Sound(sticky),
     Ground: new ImageSource(ground),
     GroundData: new Resource(cords, "json"),
+    BanaanData: new Resource(bancords, "json"),
     GoldenBanana: new ImageSource(banaan),
     Banana: new ImageSource(banaantje),
     Fell: new Sound(fell),
@@ -54,6 +56,7 @@ const ResourceLoader = new Loader([
     Resources.Jumpsheet,
     Resources.Fish,
     Resources.Background,
+    Resources.BanaanData,
     Resources.Background2,
     Resources.IslandSwing,
     Resources.StickySituation,

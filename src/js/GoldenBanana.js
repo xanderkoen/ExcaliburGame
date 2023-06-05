@@ -8,8 +8,8 @@ export class GoldenBanana extends Actor {
     constructor(x, y) {
         super({ width: Resources.GoldenBanana.width, height: Resources.GoldenBanana.height }) // collision box!
         this.pos = new Vector(
-            150,
-            500
+            2300,
+            550
         )
         this.scale = new Vector(4, 4);
     }

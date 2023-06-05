@@ -13,10 +13,13 @@ export class startMap extends Scene {
     background
     player
     ui
+    startpos = new Vector(1500,900)
 
     onInitialize(_engine) {
 
         this.levelint = 1
+
+        _engine.showDebug(true)
 
         console.log("first level")
 
@@ -32,14 +35,14 @@ export class startMap extends Scene {
         this.goldenbanan = new GoldenBanana()
         this.add(this.goldenbanan)
 
-        this.banaantje = new Banana()
-        this.add(this.banaantje)
-
         //locks the camera to the player
         this.camera.strategy.lockToActor(this.player)
 
         //creates the ground
         this.createGround()
+
+        //spawns in the banaans
+        this.createBanaantjes()
 
         //UI
         this.uivar = new UI()
@@ -59,13 +62,20 @@ export class startMap extends Scene {
         console.log(Resources.GroundData)
     }
 
+    createBanaantjes(){
+        for (let pos of Resources.BanaanData.path) {
+            const banaan = new Banana(pos.x, pos.y)
+            this.add(banaan)
+        }
+    }
+
     resetPlayer() {
         //reset velocity
         this.player.vel.y = 0
         this.player.vel.x = 0
 
         //put back to spawn
-        this.player.pos = new Vector(0,-10)
+        this.player.pos = this.startpos
     }
 
 
