@@ -9,8 +9,8 @@ export class Ground extends Actor {
     }
 
     onInitialize(engine) {
-        this.graphics.use(Resources.Ground.toSprite())
-        this.body.collisionType = CollisionType.Fixed
+            this.graphics.use(Resources.Ground.toSprite())
 
+        this.body.collisionType = CollisionType.Fixed
     }
 }

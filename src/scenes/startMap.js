@@ -19,8 +19,6 @@ export class startMap extends Scene {
 
         this.levelint = 1
 
-        _engine.showDebug(true)
-
         console.log("first level")
 
         this.background = new Background()

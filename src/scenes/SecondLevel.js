@@ -1,18 +1,20 @@
 import {Axis, Color, Font, FontUnit, Label, Scene, vec, Vector} from 'excalibur'
 import { Background } from "../js/background.js";
 import { Player } from "../js/player.js";
-import { Ground } from "../js/ground.js";
+import { Mud } from '../js/mud.js';
 import { Resources } from "../js/resources.js";
-import { GoldenBanana } from "../js/GoldenBanana.js";
 import { UI } from "../js/ui.js"
 import {Banana} from "../js/Banana.js";
+import {GoldenBanana2} from "../js/GoldenBanana2.js";
+import { Wall } from '../js/wall.js'
 
 export class secondLevel extends Scene {
 
+    startpos = new Vector(1500,600)
     levelint
     background
     player
-    ui
+    uivar
 
     onInitialize(_engine) {
         this.levelint = 2
@@ -22,11 +24,8 @@ export class secondLevel extends Scene {
         this.add(this.background)
 
         this.player = new Player()
-        this.player.pos = vec( 0,0)
+        this.player.pos = this.startpos
         this.add(this.player)
-
-        this.banaantje = new Banana()
-        this.add(this.banaantje)
 
         //locks the camera to the player
         this.camera.strategy.lockToActor(this.player)
@@ -34,19 +33,45 @@ export class secondLevel extends Scene {
         //creates the ground
         this.createGround()
 
+        //create walls
+        this.createWalls()
+
+        const goldenbanana = new GoldenBanana2()
+        this.add(goldenbanana)
+
         //UI
         this.uivar = new UI()
         this.add(this.uivar)
     }
 
     onActivate(ctx) {
-        this.uivar.reset()
+        if (ctx.data) {
+            this.player.setLives(ctx.data.lives)
+            this.uivar.setScore(ctx.data.banaantjes)
+        }
+        this.createBanaantjes()
     }
 
     createGround() {
-        for (let pos of Resources.GroundData.path) {
-            const ground = new Ground(pos.x, pos.y)
+        for (let pos of Resources.GroundData2.path) {
+            const ground = new Mud(pos.x, pos.y)
             this.add(ground)
+        }
+
+        console.log(Resources.GroundData)
+    }
+
+    createBanaantjes(){
+        for (let pos of Resources.BanaanData2.path) {
+            const banana = new Banana(pos.x, pos.y)
+                this.add(banana)
+        }
+    }
+
+    createWalls() {
+        for (let pos of Resources.WallData.path) {
+            const wall = new Wall(pos.x, pos.y)
+            this.add(wall)
         }
 
         console.log(Resources.GroundData)
@@ -58,7 +83,7 @@ export class secondLevel extends Scene {
         this.player.vel.x = 0
 
         //put back to spawn
-        this.player.pos = new Vector(0,-10)
+        this.player.pos = this.startpos
     }
 
 

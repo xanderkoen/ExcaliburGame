@@ -13,6 +13,7 @@ import {
 import { Resources } from './resources.js'
 import {Banana} from "./Banana.js";
 import {GoldenBanana} from "./GoldenBanana.js";
+import {GoldenBanana2} from "./GoldenBanana2.js";
 
 export class Player extends Actor {
 
@@ -77,23 +78,24 @@ export class Player extends Actor {
    }
 
    onCollision(event) {
-       if (event.other instanceof Banana) {
+       if (event.other instanceof Banana) { //grab a banana
            event.other.grab()
 
            this.game.currentScene.uivar.updateScore()
-
-           const sfx = Resources.sfx
-           sfx.play()
        }
-       else if (event.other instanceof GoldenBanana) {
+       else if (event.other instanceof GoldenBanana) { //grab golden banana
            this.pos = this.game.currentScene.startpos
            event.other.SecondLevel()
+       }
+       else if (event.other instanceof GoldenBanana2) { //grab 2nd golden banana
+           event.other.CreditsLevel()
        }
    }
 
     onPreUpdate(engine, delta) {
         let speedvar = 0
 
+        console.log(`X: ${this.pos.x}, Y: ${this.pos.y}`)
         //flip animation depending on direction player is facing
          this.playerAnimations["walkingAnimation"].flipHorizontal = this.direction !== "R";
         this.playerAnimations["standingAnimation"].flipHorizontal = this.direction !== "R";
@@ -171,7 +173,8 @@ export class Player extends Actor {
                 this.Lives = 3
                 this.game.currentScene.resetPlayer()
                 this.game.currentScene.uivar.updatelife(this.Lives)
-                engine.goToScene('gameOver')
+                let verzameld = this.game.currentScene.uivar.score
+                engine.goToScene('gameOver', {bananscore: verzameld})
             }
             else{
                 this.game.currentScene.resetPlayer()
@@ -179,6 +182,12 @@ export class Player extends Actor {
             }
         }
 
+   }
+
+   setLives(lives){
+        this.Lives = lives
+       this.game.currentScene.uivar.updatelife(this.Lives)
+       console.log(`lives updated to : ${lives}`)
    }
 
    stopMusic() {

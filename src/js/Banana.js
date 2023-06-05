@@ -3,6 +3,7 @@ import { Resources } from './resources.js'
 
 export class Banana extends Actor {
 
+
     constructor(x, y) {
         super({ width: Resources.Banana.width, height: Resources.Banana.height }) // collision box!
         this.pos = new Vector(x,y)
@@ -16,14 +17,14 @@ export class Banana extends Actor {
     }
 
     grab() {
-        //play sound
+        const sfx = Resources.sfx
+        sfx.play()
     this.kill()
-
     }
 
     onPostUpdate(engine, _delta) {
-        if (this.pos.y > engine.screen.resolution.height * 2) {
-
+        if (this.pos.y > 2000) {
+            this.kill()
         }
     }
 }

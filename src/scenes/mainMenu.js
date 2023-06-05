@@ -37,6 +37,11 @@ export class MainMenu extends Scene {
         this.add(text)
     }
 
+    onActivate(ctx) {
+       const song = Resources.Credits
+        song.play(0.1)
+    }
+
     StartMusic() {
         const bgm = Resources.IslandSwing
         bgm.play(0.1);      //volume van de achtergrondmuziek
@@ -44,6 +49,8 @@ export class MainMenu extends Scene {
 
     onPreUpdate(engine, delta) {
         if(engine.input.keyboard.wasPressed(Input.Keys.Enter)) {
+            const song = Resources.Credits
+            song.stop()
             this.StartMusic()
             engine.goToScene('levelOne')
         }

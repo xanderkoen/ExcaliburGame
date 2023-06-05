@@ -58,6 +58,13 @@ export class UI extends ScreenElement {
         this.scoreText.text = 'Banaantjes : 0'
     }
 
+    setScore(score){
+        this.score = score
+        console.log(`score set to : ${score}`)
+        this.scoreText.text = `Banaantjes: ${score}`
+
+    }
+
     updateScore() {
         this.score++
         this.scoreText.text = `Banaantjes: ${this.score}`

@@ -9,3 +9,5 @@
 
 ![MainMenu](./src/images/goverimage.png)
 
+ATTRIBUTION: The Cynic Project / cynicmusic.com / pixelsphere.org
+

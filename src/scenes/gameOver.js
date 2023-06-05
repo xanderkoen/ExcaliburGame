@@ -3,11 +3,11 @@ import { Resources } from "../js/resources.js";
 
 export class gameOver extends Scene {
 
+    score = 0
+    text
+
     onInitialize(engine) {
         console.log("Game over scene")
-        //play music
-        const overmusic = Resources.gameover
-        overmusic.play(0.1)
 
         //add bg image
         const image = new Actor({
@@ -21,8 +21,8 @@ export class gameOver extends Scene {
 
 
         //add text
-        const text = new Label({
-            text: "Game over! \n Druk op enter om het opnieuw te proberen",
+        this.text = new Label({
+            text: `Game over! \n Druk op enter om het opnieuw te proberen`,
             pos: new Vector(this.engine.screen.resolution.width / 2, engine.screen.resolution.height / 2),
             font: new Font({
                 unit: FontUnit.Px,
@@ -36,7 +36,33 @@ export class gameOver extends Scene {
                 }
             })
         })
-        this.add(text)
+        this.add(this.text)
+    }
+
+    onActivate(ctx) {
+        if (ctx.data) {
+            this.logScore(ctx.data.bananscore)
+        }
+        this.GameoverMusic()
+    }
+
+    logScore(score){
+        this.score = score
+        console.log(`score set to : ${score}`)
+        if (score === 0){
+            this.text.text = `Game over! \n Druk op enter om het opnieuw te proberen \n Je hebt in totaal \n geen bananen verzameld 😥`
+        }
+        else if (score === 1){
+            this.text.text = `Game over! \n Druk op enter om het opnieuw te proberen \n Je hebt in totaal ${score} \n banaan verzameld`
+        }else if (score > 1){
+            this.text.text = `Game over! \n Druk op enter om het opnieuw te proberen \n Je hebt in totaal ${score} \n bananen verzameld`
+        }
+    }
+
+    GameoverMusic() {
+        //play music
+        const overmusic = Resources.gameover
+        overmusic.play(0.1)
     }
 
     StartMusic() {

@@ -23,8 +23,6 @@ export class GoldenBanana extends Actor {
     }
 
     SecondLevel(){
-        console.log('sex')
-
         const bgm = Resources.IslandSwing
         bgm.stop()
 
@@ -33,7 +31,10 @@ export class GoldenBanana extends Actor {
 
         const sfx = Resources.gsfx
         sfx.play()
-        this.game.goToScene('levelTwo')
+
+        let currentlives = this.game.currentScene.player.Lives
+        let currentbanaantjes = this.game.currentScene.uivar.score
+        this.game.goToScene('levelTwo', {lives: currentlives, banaantjes: currentbanaantjes} )
 
 
     }
