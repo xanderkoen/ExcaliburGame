@@ -25,6 +25,7 @@ import goverimage from '../images/goverimage.png'
 import mud from '../images/mud.png'
 import wall from '../images/Wall.png'
 import credits from '../Sounds/001_Synthwave_4k.mp3'
+import win from '../images/Win.png'
 
 const Resources = {
     Idlesheet: new ImageSource(idlesheet),
@@ -52,10 +53,12 @@ const Resources = {
     gsfx: new Sound(goldsfx),
     gameover: new Sound(gameover),
     goverimage: new ImageSource(goverimage),
-    Credits: new Sound(credits)
+    Credits: new Sound(credits),
+    Win: new ImageSource(win)
 }
 
 const ResourceLoader = new Loader([
+    Resources.Win,
     Resources.Head,
     Resources.Wall,
     Resources.GoldenBanana,

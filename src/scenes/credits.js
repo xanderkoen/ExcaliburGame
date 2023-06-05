@@ -5,16 +5,16 @@ export class Cresits extends Scene {
     text
 
     onInitialize(engine) {
-        console.log("Game over scene")
+        console.log("Credits")
 
         //add bg image
         const image = new Actor({
             pos: new Vector(0,0),
-            scale: vec(2, 1.4),
+            scale: vec(2, 1.2),
             anchor: vec(0,0)
         })
 
-        image.graphics.use(Resources.goverimage.toSprite())
+        image.graphics.use(Resources.Win.toSprite())
         this.add(image)
 
 
