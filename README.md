@@ -3,8 +3,9 @@
 ![MainMenu](./src/images/monkeymenu.png)
 
 - pak zoveel mogelijk banaantjes
-- vind de gouden banaan
-- win het spel!
+- klim over het plafond
+- vind geheime plekken met extra veel bananen
+- pak de gouden banaan en win het spel!
 - niet doodgaan anders krijg je gameover
 
 ![MainMenu](./src/images/goverimage.png)

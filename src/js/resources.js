@@ -1,4 +1,4 @@
-import { ImageSource, Sound, Resource, Loader } from 'excalibur'
+import { ImageSource, Sound, Resource, Loader, Color } from 'excalibur'
 import fishImage from '../images/fish.png'
 import bgImage from '../images/bgtest.png'
 import bgImage2 from '../images/Background2.png'
@@ -26,6 +26,7 @@ import mud from '../images/mud.png'
 import wall from '../images/Wall.png'
 import credits from '../Sounds/001_Synthwave_4k.mp3'
 import win from '../images/Win.png'
+import banner from '../images/banner.png'
 
 const Resources = {
     Idlesheet: new ImageSource(idlesheet),
@@ -54,7 +55,7 @@ const Resources = {
     gameover: new Sound(gameover),
     goverimage: new ImageSource(goverimage),
     Credits: new Sound(credits),
-    Win: new ImageSource(win)
+    Win: new ImageSource(win),
 }
 
 const ResourceLoader = new Loader([
@@ -85,5 +86,12 @@ const ResourceLoader = new Loader([
     Resources.goverimage,
     Resources.Credits,
 ])
+
+ResourceLoader.logo = banner
+ResourceLoader.backgroundColor = Color.Black
+ResourceLoader.loadingBarColor = Color.Green
+ResourceLoader.suppressPlayButton = true
+
+
 
 export { Resources, ResourceLoader }
