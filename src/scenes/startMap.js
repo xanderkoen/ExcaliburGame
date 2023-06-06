@@ -39,9 +39,6 @@ export class startMap extends Scene {
         //creates the ground
         this.createGround()
 
-        //spawns in the banaans
-        this.createBanaantjes()
-
         //UI
         this.uivar = new UI()
         this.add(this.uivar)
@@ -49,6 +46,9 @@ export class startMap extends Scene {
 
     onActivate(ctx) {
         this.uivar.reset()
+
+        //spawns in the banaans
+        this.createBanaantjes()
     }
 
     createGround() {

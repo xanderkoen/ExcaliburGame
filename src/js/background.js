@@ -7,15 +7,18 @@ export class Background extends Actor {
     offset
     game
     bgImage
+    yvar
     onInitialize(engine){
 
         this.game = engine
 
         if (this.game.currentScene.levelint === 1){
             this.bgImage = Resources.Background.toSprite()
+            this.yvar = 0
         }
         else{
             this.bgImage = Resources.Background2.toSprite()
+            this.yvar = -200
         }
         this.offset = this.bgImage.width
 
@@ -23,16 +26,16 @@ export class Background extends Actor {
             members: [
                 {
                     graphic: this.bgImage,
-                    pos: new Vector(0, 0),
+                    pos: new Vector(0, this.yvar),
                 },
                 {
                     graphic: this.bgImage,
-                    pos: new Vector(this.bgImage.width, 0),
+                    pos: new Vector(this.bgImage.width, this.yvar),
 
                 },
                 {
                     graphic: this.bgImage,
-                    pos: new Vector(this.bgImage.width * 2, 0),
+                    pos: new Vector(this.bgImage.width * 2, this.yvar),
                 }
             ]
         })

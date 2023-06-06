@@ -88,6 +88,7 @@ export class Player extends Actor {
            event.other.SecondLevel()
        }
        else if (event.other instanceof GoldenBanana2) { //grab 2nd golden banana
+           this.pos = this.game.currentScene.startpos
            event.other.CreditsLevel()
        }
    }
@@ -95,7 +96,6 @@ export class Player extends Actor {
     onPreUpdate(engine, delta) {
         let speedvar = 0
 
-        console.log(`X: ${this.pos.x}, Y: ${this.pos.y}`)
         //flip animation depending on direction player is facing
          this.playerAnimations["walkingAnimation"].flipHorizontal = this.direction !== "R";
         this.playerAnimations["standingAnimation"].flipHorizontal = this.direction !== "R";

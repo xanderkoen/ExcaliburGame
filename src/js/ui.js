@@ -46,9 +46,9 @@ export class UI extends ScreenElement {
                 unit: FontUnit.Px,
                 size: 30,
                 color: Color.White,
+                baseAlign: BaseAlign.Middle
             }),
         })
-        this.livesText.pos = new Vector(0,20)
         this.graphics.add(this.livesText)
 
     }

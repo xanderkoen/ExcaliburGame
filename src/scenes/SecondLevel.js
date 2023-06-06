@@ -1,4 +1,4 @@
-import {Axis, Color, Font, FontUnit, Label, Scene, vec, Vector} from 'excalibur'
+import {Axis, Color, Font, FontUnit, Label, ParallaxComponent, Scene, vec, Vector} from 'excalibur'
 import { Background } from "../js/background.js";
 import { Player } from "../js/player.js";
 import { Mud } from '../js/mud.js';
@@ -21,6 +21,7 @@ export class secondLevel extends Scene {
         console.log("Second level")
 
         this.background = new Background()
+        this.background.addComponent(new ParallaxComponent(new Vector(0.5, 0.5)))
         this.add(this.background)
 
         this.player = new Player()
